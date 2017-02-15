@@ -152,22 +152,22 @@
         AnalogSwitch="Disabled"
         PinLock="Disabled" />
       <pin13
-        ID="GPIO6"
+        ID="SWDIO"
         Type="PushPull"
         Level="High"
         Speed="Minimum"
         Resistor="PullDown"
-        Mode="Input"
+        Mode="Alternate"
         Alternate="0"
         AnalogSwitch="Disabled"
         PinLock="Disabled" />
       <pin14
-        ID="GPIO5"
+        ID="SWCLK"
         Type="PushPull"
         Level="High"
         Speed="Minimum"
         Resistor="PullDown"
-        Mode="Input"
+        Mode="Alternate"
         Alternate="0"
         AnalogSwitch="Disabled"
         PinLock="Disabled" />
