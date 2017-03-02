@@ -647,6 +647,157 @@ uint16_t spi_lld_polled_exchange(SPIDriver *spip, uint16_t frame) {
   }
 }
 
+
+/**
+ * @brief   Sends one frame of data polling for completion in half duplex SPI (3 wire) link.
+ * @details This synchronous function exchanges one frame using a polled
+ *          synchronization method. This function is useful when exchanging
+ *          small amount of data on high speed channels, usually in this
+ *          situation is much more efficient just wait for completion using
+ *          polling than suspending the thread waiting for an interrupt.
+ *
+ * @param[in] spip      pointer to the @p SPIDriver object
+ * @param[in] frame     the data frame to send over the SPI bus
+ * @return              The received data frame from the SPI bus.
+ */
+
+int spi_lld_polled_tx(SPIDriver *spip, uint8_t val) {
+
+  if (!(spip->spi->CR1 & SPI_CR1_BIDIMODE)) {
+    /* Not in 3 wire mode ... exit */
+    return(-1);
+  }
+  /* Insure that the spi channel is in transmit mode */
+  spip->spi->CR1 |= SPI_CR1_BIDIOE;
+
+  /*Disable DMA */
+  /* cr2_state = spip->spi->CR2; */
+  /* spip->spi->CR2 &= (~(0x0007)); */
+  
+  /* check TXE flag */
+  while ((spip->spi->SR & SPI_SR_TXE) != SPI_SR_TXE);
+
+  /* Write the data */
+  volatile uint8_t *spidr = (volatile uint8_t *)&spip->spi->DR;
+  *spidr = val;
+
+  /* Check to see that the Transmitter is empty */
+  //  while ((spip->spi->SR & 0x1800) != 0x00);
+  while (spip->spi->SR & SPI_SR_FTLVL);
+
+  //   while (spip->spi->SR & SPI_SR_FTLVL);   // Poll for the TX Fifo to be empty. 
+  /* Wait BSY flag */
+  while ((spip->spi->SR & SPI_SR_BSY) == SPI_SR_BSY);
+  
+  /* spip->spi->CR2 = cr2_state; */
+  return (0);
+}
+
+int spi_lld_polled_rx(SPIDriver *spip) {
+  uint8_t val;
+
+  /* In master RX mode the clock is automaticaly generated on the SPI enable.
+  So to guarantee the clock generation for only one data, the clock must be
+  disabled after the first bit and before the latest bit */
+  /* Interrupts should be disabled during this operation */
+
+  chSysLock();
+  spip->spi->CR1 |= SPI_CR1_SPE;   // Turn on the SPI 
+  __asm("dsb\n");
+  __asm("dsb\n");
+  spip->spi->CR1 &= ~SPI_CR1_SPE;   // Turn off the SPI
+  chSysUnlock();
+  
+  while ((spip->spi->SR & SPI_SR_RXNE) != SPI_SR_RXNE);
+  /* read the received data */
+  volatile uint8_t *spidr = (volatile uint8_t *)&spip->spi->DR;
+  val = *spidr;
+  while ((spip->spi->SR & SPI_SR_BSY) == SPI_SR_BSY);
+  return (val);
+}
+
+/* uint16_t spi_lld_polled_tx(SPIDriver *spip, uint16_t frame) { */
+/*   unsigned int cr2_state; */
+/*   if (!(spip->spi->CR1 & SPI_CR1_BIDIMODE)) { */
+/*     /\* Not in 3 wire mode ... exit *\/ */
+/*     return(3); */
+/*   } */
+/*   /\* Insure that the spi channel is in transmit mode *\/ */
+/*   spip->spi->CR1 |= SPI_CR1_BIDIOE; */
+
+/*   cr2_state = spip->spi->CR2; */
+/*   spip->spi->CR2 &= (~(0x0007)); */
+ 
+/*   /\* */
+/*    * Data register must be accessed with the appropriate data size. */
+/*    * Byte size access (uint8_t *) for transactions that are <= 8-bit. */
+/*    * Halfword size access (uint16_t) for transactions that are <= 8-bit. */
+/*    *\/ */
+/*   if ((spip->config->cr2 & SPI_CR2_DS) <= (SPI_CR2_DS_2 | */
+/*                                            SPI_CR2_DS_1 | */
+/*                                            SPI_CR2_DS_0)) { */
+/*     volatile uint8_t *spidr = (volatile uint8_t *)&spip->spi->DR; */
+/*     *spidr = (uint8_t)frame; */
+/*     while ((spip->spi->SR & SPI_SR_TXE) == 0); */
+/*     return (0); */
+/*   } */
+/*   else { */
+/*     spip->spi->DR = frame; */
+/*     while ((spip->spi->SR & SPI_SR_TXE) == 0); */
+/*     return (0); */
+/*   } */
+/*   spip->spi->CR2 = cr2_state; */
+/* } */
+
+/**
+ * @brief   Receives one frame of data polling for completion in half duplex SPI (3 wire) link.
+ * @details This synchronous function exchanges one frame using a polled
+ *          synchronization method. This function is useful when exchanging
+ *          small amount of data on high speed channels, usually in this
+ *          situation is much more efficient just wait for completion using
+ *          polling than suspending the thread waiting for an interrupt.
+ *
+ * @param[in] spip      pointer to the @p SPIDriver object
+ * @param[in] frame     the data frame to send over the SPI bus
+ * @return              The received data frame from the SPI bus.
+ */
+/* uint16_t spi_lld_polled_rx(SPIDriver *spip, uint16_t frame) { */
+/*   unsigned int cr2_state; */
+
+/*   if (!(spip->spi->CR1 & SPI_CR1_BIDIMODE)) { */
+/*     /\* Not in 3 wire mode ... exit *\/ */
+/*     return(3); */
+/*   } */
+/*   /\* Insure that the spi channel is in receive mode *\/ */
+/*   spip->spi->CR1 &= (~SPI_CR1_BIDIOE); */
+/*   cr2_state = spip->spi->CR2; */
+/*   spip->spi->CR2 &= (~(0x0007)); */
+/*   /\* */
+/*    * Data register must be accessed with the appropriate data size. */
+/*    * Byte size access (uint8_t *) for transactions that are <= 8-bit. */
+/*    * Halfword size access (uint16_t) for transactions that are <= 8-bit. */
+/*    *\/ */
+/*   if ((spip->config->cr2 & SPI_CR2_DS) <= (SPI_CR2_DS_2 | */
+/*                                            SPI_CR2_DS_1 | */
+/*                                            SPI_CR2_DS_0)) { */
+/*     volatile uint8_t *spidr = (volatile uint8_t *)&spip->spi->DR; */
+/*     *spidr = (uint8_t)frame; */
+/*     while ((spip->spi->SR & SPI_SR_RXNE) == 0); */
+/*     return (uint16_t)*spidr; */
+/*   } */
+/*   else { */
+/*     spip->spi->DR = frame; */
+/*     while ((spip->spi->SR & SPI_SR_RXNE) == 0); */
+/*     return spip->spi->DR; */
+/*   } */
+/*   spip->spi->CR2 = cr2_state; */
+/* } */
+
+
+
+
+
+
 #endif /* HAL_USE_SPI */
 
 /** @} */

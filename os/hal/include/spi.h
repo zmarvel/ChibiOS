@@ -202,6 +202,11 @@ typedef enum {
  * @return              The received data frame from the SPI bus.
  */
 #define spiPolledExchange(spip, frame) spi_lld_polled_exchange(spip, frame)
+
+/* Similar to Exchange except expect half duplex spi link */
+#define spiPolledTx(spip, frame) spi_lld_polled_tx(spip, frame)
+#define spiPolledRx(spip) spi_lld_polled_rx(spip)
+
 /** @} */
 
 /**
