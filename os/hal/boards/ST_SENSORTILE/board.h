@@ -1177,9 +1177,9 @@
                                      PIN_MODE_ANALOG(GPIOG_PIN6) |          \
                                      PIN_MODE_ANALOG(GPIOG_PIN7) |          \
                                      PIN_MODE_ANALOG(GPIOG_PIN8) |          \
-                                     PIN_MODE_ANALOG(GPIOG_SAI_SCK) |       \
-                                     PIN_MODE_ANALOG(GPIOG_SAI_ES) |        \
-                                     PIN_MODE_ANALOG(GPIOG_SAI_MCLK) |      \
+                                     PIN_MODE_ALTERNATE(GPIOG_SAI_SCK) |    \
+                                     PIN_MODE_ALTERNATE(GPIOG_SAI_ES) |     \
+                                     PIN_MODE_ALTERNATE(GPIOG_SAI_MCLK) |   \
                                      PIN_MODE_OUTPUT(GPIOG_SAI_SD) |        \
                                      PIN_MODE_ANALOG(GPIOG_PIN13) |         \
                                      PIN_MODE_ANALOG(GPIOG_PIN14) |         \
@@ -1209,10 +1209,10 @@
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN6) |       \
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN7) |       \
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN8) |       \
-                                     PIN_OSPEED_VERYLOW(GPIOG_SAI_SCK) |    \
-                                     PIN_OSPEED_VERYLOW(GPIOG_SAI_ES) |     \
-                                     PIN_OSPEED_VERYLOW(GPIOG_SAI_MCLK) |   \
-                                     PIN_OSPEED_VERYLOW(GPIOG_SAI_SD) |     \
+                                     PIN_OSPEED_HIGH(GPIOG_SAI_SCK) |    \
+                                     PIN_OSPEED_HIGH(GPIOG_SAI_ES) |     \
+                                     PIN_OSPEED_HIGH(GPIOG_SAI_MCLK) |   \
+                                     PIN_OSPEED_HIGH(GPIOG_SAI_SD) |     \
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN13) |      \
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN14) |      \
                                      PIN_OSPEED_VERYLOW(GPIOG_PIN15))
@@ -1257,9 +1257,9 @@
                                      PIN_AFIO_AF(GPIOG_PIN6, 0U) |          \
                                      PIN_AFIO_AF(GPIOG_PIN7, 0U))
 #define VAL_GPIOG_AFRH              (PIN_AFIO_AF(GPIOG_PIN8, 0U) |          \
-                                     PIN_AFIO_AF(GPIOG_SAI_SCK, 0U) |       \
-                                     PIN_AFIO_AF(GPIOG_SAI_ES, 0U) |        \
-                                     PIN_AFIO_AF(GPIOG_SAI_MCLK, 0U) |      \
+                                     PIN_AFIO_AF(GPIOG_SAI_SCK, 6U) |       \
+                                     PIN_AFIO_AF(GPIOG_SAI_ES, 6U) |        \
+                                     PIN_AFIO_AF(GPIOG_SAI_MCLK, 6U) |      \
                                      PIN_AFIO_AF(GPIOG_SAI_SD, 0U) |        \
                                      PIN_AFIO_AF(GPIOG_PIN13, 0U) |         \
                                      PIN_AFIO_AF(GPIOG_PIN14, 0U) |         \
