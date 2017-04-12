@@ -121,6 +121,17 @@ int _write_r(struct _reent *r, int file, char * ptr, int len)
 /***************************************************************************/
 
 __attribute__((used))
+int _open_r(struct _reent *r, int file)
+{
+  (void)r;
+  (void)file;
+
+  return 0;
+}
+
+/***************************************************************************/
+
+__attribute__((used))
 int _close_r(struct _reent *r, int file)
 {
   (void)r;
