@@ -936,6 +936,9 @@ static inline void osalMutexUnlock(mutex_t *mp) {
 #endif
 }
 
+extern void* Osal_MemCpy(void *dest,const void *src, unsigned int size);
+extern void* Osal_MemSet(void *ptr, int value, unsigned int size);
+
 #endif /* _OSAL_H_ */
 
 /** @} */
