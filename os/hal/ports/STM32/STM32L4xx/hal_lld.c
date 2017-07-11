@@ -188,6 +188,14 @@ void stm32_clock_init(void) {
     ;                                       /* Wait until HSI is stable.    */
 #endif
 
+#if STM32_HSI48_ENABLED
+  /* HSI48 activation.*/
+  RCC->CCIPR |= RCC_CCIPR_CLK48SEL;
+  RCC->CRRCR |= RCC_CRRCR_HSI48ON;
+  while (!(RCC->CRRCR & RCC_CRRCR_HSI48RDY))
+    ;                                       /* Waits until HSI48 is stable. */
+#endif
+
 #if STM32_HSE_ENABLED
 #if defined(STM32_HSE_BYPASS)
   /* HSE Bypass.*/

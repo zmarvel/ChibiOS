@@ -72,6 +72,7 @@
  * @{
  */
 #define STM32_HSI16CLK          16000000    /**< High speed internal clock. */
+#define STM32_HSI48CLK          48000000    /**< 48MHz speed internal clock.*/
 #define STM32_LSICLK            32000       /**< Low speed internal clock.  */
 /** @} */
 
@@ -359,6 +360,13 @@
  */
 #if !defined(STM32_HSI16_ENABLED) || defined(__DOXYGEN__)
 #define STM32_HSI16_ENABLED                 FALSE
+#endif
+
+/**
+ * @brief   Enables or disables the HSI48 clock source.
+ */
+#if !defined(STM32_HSI48_ENABLED) || defined(__DOXYGEN__)
+#define STM32_HSI48_ENABLED                 FALSE
 #endif
 
 /**
@@ -1963,8 +1971,13 @@
 /**
  * @brief   48MHz clock frequency.
  */
+
 #if (STM32_CLK48SEL == STM32_CLK48SEL_NOCLK) || defined(__DOXYGEN__)
+#if (STM32_HSI48_ENABLED == TRUE)
+#define STM32_48CLK                 STM32_HSI48CLK
+#else 
 #define STM32_48CLK                 0
+#endif  
 #elif STM32_CLK48SEL == STM32_CLK48SEL_PLLSAI1
 #define STM32_48CLK                 (STM32_PLLSAI1VCO / STM32_PLLSAI1Q_VALUE)
 #elif STM32_CLK48SEL == STM32_CLK48SEL_PLL
