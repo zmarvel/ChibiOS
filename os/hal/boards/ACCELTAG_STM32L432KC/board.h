@@ -319,9 +319,9 @@
                                      PIN_PUPDR_PULLUP(GPIOA_STM_WAKEUP) |   \
                                      PIN_PUPDR_PULLDOWN(GPIOA_ADXL_INT) |   \
                                      PIN_PUPDR_PULLUP(GPIOA_ADXL_CS) |      \
-                                     PIN_PUPDR_FLOATING(GPIOA_SPI1_SCK) |   \
-                                     PIN_PUPDR_FLOATING(GPIOA_SPI1_MISO) |  \
-                                     PIN_PUPDR_FLOATING(GPIOA_SPI1_MOSI) |  \
+                                     PIN_PUPDR_PULLDOWN(GPIOA_SPI1_SCK) |   \
+                                     PIN_PUPDR_PULLDOWN(GPIOA_SPI1_MISO) |  \
+                                     PIN_PUPDR_PULLDOWN(GPIOA_SPI1_MOSI) |  \
                                      PIN_PUPDR_FLOATING(GPIOA_PIN8) |       \
                                      PIN_PUPDR_PULLUP(GPIOA_I2C1_SCL) |     \
                                      PIN_PUPDR_PULLUP(GPIOA_I2C1_SDA) |     \
