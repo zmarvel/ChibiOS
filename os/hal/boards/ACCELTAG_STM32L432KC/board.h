@@ -271,9 +271,9 @@
                                      PIN_MODE_INPUT(GPIOA_STM_WAKEUP) |     \
                                      PIN_MODE_INPUT(GPIOA_ADXL_INT) |       \
                                      PIN_MODE_INPUT(GPIOA_ADXL_CS) |        \
-                                     PIN_MODE_ALTERNATE(GPIOA_SPI1_SCK) |   \
-                                     PIN_MODE_ALTERNATE(GPIOA_SPI1_MISO) |  \
-                                     PIN_MODE_ALTERNATE(GPIOA_SPI1_MOSI) |  \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_SCK) |   \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_MISO) |  \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_MOSI) |  \
                                      PIN_MODE_ANALOG(GPIOA_PIN8) |          \
                                      PIN_MODE_ALTERNATE(GPIOA_I2C1_SCL) |   \
                                      PIN_MODE_ALTERNATE(GPIOA_I2C1_SDA) |   \
@@ -315,7 +315,7 @@
                                      PIN_OSPEED_HIGH(GPIOA_SWCLK) |         \
                                      PIN_OSPEED_HIGH(GPIOA_PIN15))
 #define VAL_GPIOA_PUPDR             (PIN_PUPDR_FLOATING(GPIOA_PIN0) |       \
-                                     PIN_PUPDR_PULLUP(GPIOA_FLASH_CS) |     \
+                                     PIN_PUPDR_PULLDOWN(GPIOA_FLASH_CS) |     \
                                      PIN_PUPDR_PULLUP(GPIOA_STM_WAKEUP) |   \
                                      PIN_PUPDR_PULLDOWN(GPIOA_ADXL_INT) |   \
                                      PIN_PUPDR_PULLUP(GPIOA_ADXL_CS) |      \
@@ -464,7 +464,7 @@
                                      PIN_OSPEED_HIGH(GPIOB_PIN14) |         \
                                      PIN_OSPEED_HIGH(GPIOB_PIN15))
 #define VAL_GPIOB_PUPDR             (PIN_PUPDR_PULLDOWN(GPIOB_LPS_PWR_EN) | \
-                                     PIN_PUPDR_PULLUP(GPIOB_LPS_CS) |       \
+                                     PIN_PUPDR_PULLDOWN(GPIOB_LPS_CS) |       \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN2) |       \
                                      PIN_PUPDR_FLOATING(GPIOB_SWO) |        \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN4) |       \
