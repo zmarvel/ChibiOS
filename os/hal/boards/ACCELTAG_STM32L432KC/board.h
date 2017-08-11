@@ -250,13 +250,13 @@
  * GPIOA setup:
  *
  * PA0  - PIN0                      (analog).
- * PA1  - FLASH_CS                  (input pullup).
+ * PA1  - FLASH_CS                  (input pulldown).
  * PA2  - STM_WAKEUP                (input pullup).
- * PA3  - ADXL_INT                  (input pulldown).
+ * PA3  - ADXL_INT                  (input pullup).
  * PA4  - ADXL_CS                   (input pullup).
- * PA5  - SPI1_SCK                  (alternate 5).
- * PA6  - SPI1_MISO                 (alternate 5).
- * PA7  - SPI1_MOSI                 (alternate 5).
+ * PA5  - SPI1_SCK                  (input pulldown).
+ * PA6  - SPI1_MISO                 (input pulldown).
+ * PA7  - SPI1_MOSI                 (input pulldown).
  * PA8  - PIN8                      (analog).
  * PA9  - I2C1_SCL                  (alternate 4).
  * PA10 - I2C1_SDA                  (alternate 4).
@@ -271,9 +271,9 @@
                                      PIN_MODE_INPUT(GPIOA_STM_WAKEUP) |     \
                                      PIN_MODE_INPUT(GPIOA_ADXL_INT) |       \
                                      PIN_MODE_INPUT(GPIOA_ADXL_CS) |        \
-                                     PIN_MODE_INPUT(GPIOA_SPI1_SCK) |   \
-                                     PIN_MODE_INPUT(GPIOA_SPI1_MISO) |  \
-                                     PIN_MODE_INPUT(GPIOA_SPI1_MOSI) |  \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_SCK) |       \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_MISO) |      \
+                                     PIN_MODE_INPUT(GPIOA_SPI1_MOSI) |      \
                                      PIN_MODE_ANALOG(GPIOA_PIN8) |          \
                                      PIN_MODE_ALTERNATE(GPIOA_I2C1_SCL) |   \
                                      PIN_MODE_ALTERNATE(GPIOA_I2C1_SDA) |   \
@@ -315,9 +315,9 @@
                                      PIN_OSPEED_HIGH(GPIOA_SWCLK) |         \
                                      PIN_OSPEED_HIGH(GPIOA_PIN15))
 #define VAL_GPIOA_PUPDR             (PIN_PUPDR_FLOATING(GPIOA_PIN0) |       \
-                                     PIN_PUPDR_PULLDOWN(GPIOA_FLASH_CS) |     \
+                                     PIN_PUPDR_PULLDOWN(GPIOA_FLASH_CS) |   \
                                      PIN_PUPDR_PULLUP(GPIOA_STM_WAKEUP) |   \
-                                     PIN_PUPDR_PULLDOWN(GPIOA_ADXL_INT) |   \
+                                     PIN_PUPDR_PULLUP(GPIOA_ADXL_INT) |     \
                                      PIN_PUPDR_PULLUP(GPIOA_ADXL_CS) |      \
                                      PIN_PUPDR_PULLDOWN(GPIOA_SPI1_SCK) |   \
                                      PIN_PUPDR_PULLDOWN(GPIOA_SPI1_MISO) |  \
@@ -404,8 +404,8 @@
  * PB3  - SWO                       (output pushpull maximum).
  * PB4  - PIN4                      (analog).
  * PB5  - RTC_INT                   (input pulldown).
- * PB6  - USART1_TX                 (alternate 7).
- * PB7  - USART1_RX                 (alternate 7).
+ * PB6  - USART1_TX                 (input floating).
+ * PB7  - USART1_RX                 (input floating).
  * PB8  - PIN8                      (analog).
  * PB9  - PIN9                      (analog).
  * PB10 - PIN10                     (analog).
@@ -421,8 +421,8 @@
                                      PIN_MODE_OUTPUT(GPIOB_SWO) |           \
                                      PIN_MODE_ANALOG(GPIOB_PIN4) |          \
                                      PIN_MODE_INPUT(GPIOB_RTC_INT) |        \
-                                     PIN_MODE_ALTERNATE(GPIOB_USART1_TX) |  \
-                                     PIN_MODE_ALTERNATE(GPIOB_USART1_RX) |  \
+                                     PIN_MODE_INPUT(GPIOB_USART1_TX) |      \
+                                     PIN_MODE_INPUT(GPIOB_USART1_RX) |      \
                                      PIN_MODE_ANALOG(GPIOB_PIN8) |          \
                                      PIN_MODE_ANALOG(GPIOB_PIN9) |          \
                                      PIN_MODE_ANALOG(GPIOB_PIN10) |         \
@@ -464,7 +464,7 @@
                                      PIN_OSPEED_HIGH(GPIOB_PIN14) |         \
                                      PIN_OSPEED_HIGH(GPIOB_PIN15))
 #define VAL_GPIOB_PUPDR             (PIN_PUPDR_PULLDOWN(GPIOB_LPS_PWR_EN) | \
-                                     PIN_PUPDR_PULLDOWN(GPIOB_LPS_CS) |       \
+                                     PIN_PUPDR_PULLUP(GPIOB_LPS_CS) |       \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN2) |       \
                                      PIN_PUPDR_FLOATING(GPIOB_SWO) |        \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN4) |       \
@@ -561,7 +561,7 @@
  * PC11 - PIN11                     (analog).
  * PC12 - PIN12                     (analog).
  * PC13 - PIN13                     (analog).
- * PC14 - LED_GREEN                 (output pushpull maximum).
+ * PC14 - LED_GREEN                 (input floating).
  * PC15 - PIN15                     (analog).
  */
 #define VAL_GPIOC_MODER             (PIN_MODE_ANALOG(GPIOC_PIN0) |          \
@@ -578,7 +578,7 @@
                                      PIN_MODE_ANALOG(GPIOC_PIN11) |         \
                                      PIN_MODE_ANALOG(GPIOC_PIN12) |         \
                                      PIN_MODE_ANALOG(GPIOC_PIN13) |         \
-                                     PIN_MODE_OUTPUT(GPIOC_LED_GREEN) |     \
+                                     PIN_MODE_INPUT(GPIOC_LED_GREEN) |      \
                                      PIN_MODE_ANALOG(GPIOC_PIN15))
 #define VAL_GPIOC_OTYPER            (PIN_OTYPE_PUSHPULL(GPIOC_PIN0) |       \
                                      PIN_OTYPE_PUSHPULL(GPIOC_PIN1) |       \
